@@ -69,6 +69,19 @@ export interface TokenActionBarDerivedValues {
     mindresist: { value: string };
 }
 
+export interface TokenActionBarCombatAction {
+    id: string;
+    name: string;
+    ticks: number;
+    icon: string;
+    actionType: string;
+}
+
+export interface TokenActionBarCombatActionCategory {
+    label: string;
+    actions: TokenActionBarCombatAction[];
+}
+
 export interface TokenActionBarTemplateData {
     name?: string;
     actorId?: string;
@@ -82,4 +95,5 @@ export interface TokenActionBarTemplateData {
     spells?: Record<string, TokenActionBarSpellsBySkill> | undefined;
     preparedSpell?: TokenActionBarPreparedSpell | null;
     derivedValues?: TokenActionBarDerivedValues;
+    combatActions?: TokenActionBarCombatActionCategory[];
 }

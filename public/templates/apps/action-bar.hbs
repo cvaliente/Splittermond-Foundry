@@ -156,6 +156,29 @@
             </div>
         </div>
     </div>
+    {{#if combatActions}}
+    <div class="token-action-bar-combat-actions">
+        <div style="position: relative;">
+            <div class="token-action-bar-section">Handlungen</div>
+            <div class="token-action-bar-popup">
+                <ul>
+                    {{#each combatActions}}
+                    <li class="combat-action-header"><h3>{{this.label}}</h3></li>
+                    {{#each this.actions}}
+                    <li class="rollable combat-action"
+                        data-action="executeCombatAction"
+                        data-action-id="{{this.id}}">
+                        <img alt="action icon" src="{{this.icon}}" height="24" width="24" />
+                        <label>{{this.name}}</label>
+                        <div class="ticks">{{this.ticks}} T</div>
+                    </li>
+                    {{/each}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/if}}
     <div class="token-action-bar-defense">
         <ul>
             <li class="rollable" data-roll-type="activeDefense" data-defense-type="defense" data-action="rollDefense">

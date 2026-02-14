@@ -14,6 +14,7 @@ import { SplittermondSkill } from "module/config/skillGroups";
 import { closestData } from "module/data/ClosestDataMixin";
 import { TokenActionBarTemplateData } from "./templateInterface";
 import { ElementToggler } from "./ElementToggler";
+import { getCombatActionsByCategory, executeCombatAction as execCombatAction } from "./combatActions";
 
 let theInstance: TokenActionBar | null = null;
 let showActionBarGetter = () => false;
@@ -88,6 +89,7 @@ export default class TokenActionBar extends SplittermondApplication {
                     return Promise.resolve();
                 },
                 rollSpell: (e, t) => this.rollSpell(e, t),
+                executeCombatAction: (e, t) => this.executeCombatAction(e, t),
             },
         });
         this._currentActor = null;
@@ -216,6 +218,7 @@ export default class TokenActionBar extends SplittermondApplication {
             data.preparedSpell = preparedItemId ? this.getPreparedSpell(preparedItemId) : null;
 
             data.derivedValues = this._currentActor.derivedValues;
+            data.combatActions = getCombatActionsByCategory();
         }
 
         return data;
@@ -321,6 +324,12 @@ export default class TokenActionBar extends SplittermondApplication {
             `${foundryApi.localize("splittermond.castDuration")}: ${spell.name}`
         );
         await this._currentActor?.setFlag("splittermond", "preparedSpell", itemId);
+    }
+
+    async executeCombatAction(__: PointerEvent, target: HTMLElement): Promise<void> {
+        const actionId = target.dataset.actionId;
+        if (!actionId || !this._currentActor) return;
+        await execCombatAction(actionId, this._currentActor);
     }
 
     openSheet() {

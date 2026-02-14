@@ -117,7 +117,8 @@
 .token-action-bar-defense,
 .token-action-bar-skills,
 .token-action-bar-attacks,
-.token-action-bar-spells {
+.token-action-bar-spells,
+.token-action-bar-combat-actions {
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -246,6 +247,30 @@
 }
 .token-action-bar-attacks {
     z-index: 200;
+}
+
+.token-action-bar-combat-actions {
+    z-index: 150;
+
+    .combat-action-header {
+        background-color: rgba(128, 128, 128, 0.15);
+        pointer-events: none;
+
+        h3 {
+            font-size: 0.9em;
+            margin: 0;
+            padding: 2px 0;
+        }
+    }
+
+    .token-action-bar-popup li .ticks {
+        width: 40px;
+        text-align: center;
+        font-family: Signika;
+        font-size: 12px;
+        opacity: 0.7;
+        white-space: nowrap;
+    }
 }
 
 .token-action-bar-defense {
